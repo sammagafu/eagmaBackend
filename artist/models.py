@@ -1,11 +1,12 @@
 from django.db import models
+from django_quill.fields import QuillField
 from django_resized import ResizedImageField
 class Genre(models.Model):
     name = models.CharField(max_length=100)
 
 class Artist(models.Model):
     name = models.CharField(max_length=100)
-    bio = models.TextField()
+    bio = QuillField()
     photo = ResizedImageField(upload_to='artist_photos/',size=[800, 800], crop=['middle', 'center'],quality=100)
     website = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
