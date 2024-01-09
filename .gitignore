@@ -1,0 +1,34 @@
+# Byte-compiled / optimized Python files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# Secret keys
+*.secret_key
+
+# Django development settings
+*.sqlite3
+*.pyc
+
+# Media files (user-uploaded content)
+media/
+
+# Static files (collected static files)
+staticfiles/
+
+# Ignore local settings
+local_settings.py
+
+# IDE files (specific to your IDE/editor)
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore database migrations (if desired)
+**/migrations/*.py
+**/migrations/*.pyc
