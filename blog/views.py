@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import Category
+from .serializers import CategorySerializer
 
-# Create your views here.
+class CategoryWithBlogPostsView(generics.ListAPIView):
+    queryset = Category.objects.prefetch_related('blogpost_set')
+    serializer_class = CategorySerializer
