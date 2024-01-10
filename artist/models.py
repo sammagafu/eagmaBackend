@@ -1,11 +1,14 @@
 from django.db import models
 from django_quill.fields import QuillField
 from django_resized import ResizedImageField
+from django.utils.text import slugify
 class Genre(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=200, unique=True, blank=True,editable=False)
 
 class Artist(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=200, unique=True, blank=True,editable=False)
     bio = QuillField()
     photo = ResizedImageField(upload_to='artist_photos/',size=[800, 800], crop=['middle', 'center'],quality=100)
     website = models.URLField(blank=True)
@@ -13,14 +16,28 @@ class Artist(models.Model):
     
     def __str__(self):
         return self.name
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
 class Album(models.Model):
     name = models.CharField(max_length=180)
+    slug = models.SlugField(max_length=200, unique=True, blank=True,editable=False)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+
 class Song(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    slug = models.SlugField(max_length=200, unique=True, blank=True,editable=False)
     title = models.CharField(max_length=200)
     album = models.ForeignKey(Album, on_delete=models.CASCADE,)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
@@ -31,3 +48,8 @@ class Song(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)

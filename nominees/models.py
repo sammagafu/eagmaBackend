@@ -16,6 +16,7 @@ class Nominee(models.Model):
     is_winner = models.BooleanField(default=False)
 
 class Vote(models.Model):
+    award = models.ForeignKey(Award, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE,related_name="votingCategory")
     voted_nominee = models.ForeignKey(Nominee, on_delete=models.CASCADE,related_name="nominiee")  # If you have a Nominee model
@@ -23,4 +24,4 @@ class Vote(models.Model):
     
 
     class Meta:
-        unique_together = ('user', 'category')
+        unique_together = ('user', 'category','award')
