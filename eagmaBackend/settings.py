@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'artist',
     'awards',
     'nominees',
+    'blog',
     'djoser',
 
 ]
