@@ -6,5 +6,6 @@ urlpatterns = [
     path('blog/',include('blog.urls')),
     path('artist/',include('artist.urls')),
     path('awards/',include('awards.urls')),
+    path('nominees/',include('nominees.urls')),
     re_path(r'^auth/', include('djoser.urls')),
 ]
