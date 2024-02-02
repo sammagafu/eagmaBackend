@@ -11,6 +11,9 @@ class Nominee(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     is_winner = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.artist.name
+
 class Vote(models.Model):
     award = models.ForeignKey(Award, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)

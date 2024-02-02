@@ -5,6 +5,7 @@ from .models import Nominee, Vote
 class NomineeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Nominee
+        depth = 1
         fields = '__all__'
 
 class VoteSerializer(serializers.ModelSerializer):

@@ -4,25 +4,32 @@ from .models import Genre, Artist, Album, Song
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = '__all__'
-
-class SongSerializer(serializers.ModelSerializer):
-    genre = GenreSerializer()  # Nested serializer for the song genre
-
-    class Meta:
-        model = Song
-        fields = '__all__'
-
-class AlbumSerializer(serializers.ModelSerializer):
-    songs = SongSerializer(many=True)  # Nested serializer for the album songs
-
-    class Meta:
-        model = Album
-        fields = '__all__'
+        fields = ('id', 'name', 'slug')
 
 class ArtistSerializer(serializers.ModelSerializer):
-    albums = AlbumSerializer(many=True)  # Nested serializer for the artist albums
+    albums = serializers.SerializerMethodField()
 
     class Meta:
         model = Artist
-        fields = '__all__'
+        fields = ('id', 'name','gender', 'slug', 'bio', 'photo', 'website', 'created_at', 'albums')
+
+    def get_albums(self, obj):
+        albums = obj.singer.all()
+        return AlbumSerializer(albums, many=True).data
+
+class AlbumSerializer(serializers.ModelSerializer):
+    songs = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Album
+        fields = ('id', 'name', 'slug', 'artist', 'songs')
+
+    def get_songs(self, obj):
+        songs = obj.album.all()
+        return SongSerializer(songs, many=True).data
+
+class SongSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Song
+        fields = ('id', 'artist', 'slug', 'title', 'album', 'genre', 'release_date', 'audio_file', 'video_link')
+

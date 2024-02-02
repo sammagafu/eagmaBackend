@@ -8,7 +8,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class AwardSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True, read_only=True)
+    description_content = serializers.CharField(source='description', read_only=True)
 
     class Meta:
         model = Award
-        fields = '__all__'
+        fields = ('name','slug','date','year','location','description_content','active_award','categories')
