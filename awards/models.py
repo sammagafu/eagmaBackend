@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.text import slugify
-from django_quill.fields import QuillField
 from django.utils import timezone
 
 
@@ -23,7 +22,7 @@ class Award(models.Model):
     year = models.IntegerField()
     date = models.DateField(auto_now=False, auto_now_add=False,default=timezone.now)
     location = models.CharField(max_length=200)
-    description = QuillField()
+    description = models.TextField()
     categories = models.ManyToManyField(Category, related_name='awards')
     active_award = models.BooleanField(default=False,)
 

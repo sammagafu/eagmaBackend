@@ -1,5 +1,4 @@
 from django.db import models
-from django_quill.fields import QuillField
 from django_resized import ResizedImageField
 from django.utils.text import slugify
 class Genre(models.Model):
@@ -17,7 +16,7 @@ class Artist(models.Model):
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=100,choices=GENDER,default="Female")
     slug = models.SlugField(max_length=200, unique=True, blank=True,editable=False)
-    bio = QuillField()
+    bio = models.TextField()
     photo = ResizedImageField(upload_to='artist_photos/',size=[800, 800], crop=['middle', 'center'],quality=100)
     website = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

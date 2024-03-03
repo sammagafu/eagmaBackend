@@ -3,7 +3,16 @@ from rest_framework import generics, permissions
 from .models import Nominee, Vote
 from .serializers import NomineeSerializer, VoteSerializer
 from rest_framework import serializers
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.exceptions import APIException
 
+
+
+
+class CustomAPIException(APIException):
+    status_code = 400
+    default_detail = 'Bad request. You can vote only once in this category and award.'
+    default_code = 'bad_request'
 
 class NomineeListCreateView(generics.ListCreateAPIView):
     queryset = Nominee.objects.all()
@@ -25,7 +34,7 @@ class VoteListCreateView(generics.ListCreateAPIView):
         award = serializer.validated_data['award']
 
         if Vote.objects.filter(user=user, category=category, award=award).exists():
-            raise serializers.ValidationError('You can vote only once in this category and award.')
+            raise CustomAPIException()
 
         serializer.save(user=user)
 

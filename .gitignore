@@ -5,6 +5,7 @@ __pycache__/
 # Virtual environment
 venv/
 env/
+
 *.env
 
 # Secret keys
@@ -32,3 +33,6 @@ local_settings.py
 # Ignore database migrations (if desired)
 **/migrations/*.py
 **/migrations/*.pyc
+
+
+ 
