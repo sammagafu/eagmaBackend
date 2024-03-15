@@ -28,6 +28,11 @@ class Artist(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
+    def get_photo(self):
+        if self.coverImage:
+            return 'https://api.eagma.co.tz' + self.photo.url
+        return ''
+
 class Album(models.Model):
     name = models.CharField(max_length=180)
     slug = models.SlugField(max_length=200, unique=True, blank=True,editable=False)

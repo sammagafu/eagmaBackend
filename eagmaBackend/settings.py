@@ -31,9 +31,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -43,10 +43,9 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "http://localhost:8000",
     "https://eagma.co.tz",
     "https://www.eagma.co.tz",
-    "www.eagma.co.tz",
+    "https://www.eagma.co.tz",
 ]
 
 ROOT_URLCONF = 'eagmaBackend.urls'
@@ -75,12 +74,12 @@ WSGI_APPLICATION = 'eagmaBackend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'eagma',
         'USER':'eagmaadmin',
         'PASSWORD':'Caf3Aroma-2024q',
         'HOST':'localhost',
-        'PORT':'3306',
+        'PORT':'',
     }
 }
 
@@ -121,8 +120,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles' # For Deployment
+import os
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'mediafiles'
