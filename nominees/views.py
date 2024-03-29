@@ -5,10 +5,15 @@ from .serializers import NomineeSerializer, VoteSerializer
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.exceptions import APIException
+from rest_framework.response import Response
 
 
+class NomineeByCategoryAPIView(ListAPIView):
+    serializer_class = NomineeSerializer
 
-
+    def get_queryset(self):
+        category_slug = self.kwargs.get('category_slug')
+        return Nominee.objects.filter(category__slug=category_slug)
 class CustomAPIException(APIException):
     status_code = 400
     default_detail = 'Bad request. You can vote only once in this category and award.'
@@ -41,3 +46,11 @@ class VoteListCreateView(generics.ListCreateAPIView):
 class VoteDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
+
+
+class NomineeByCategoryAPIView(generics.ListAPIView):
+    serializer_class = NomineeSerializer
+
+    def get_queryset(self):
+        category_slug = self.kwargs.get('category_slug')
+        return Nominee.objects.filter(category__slug=category_slug)
