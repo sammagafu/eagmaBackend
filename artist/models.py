@@ -29,7 +29,7 @@ class Artist(models.Model):
         super().save(*args, **kwargs)
 
     def get_photo(self):
-        if self.coverImage:
+        if self.photo:
             return 'https://api.eagma.co.tz' + self.photo.url
         return ''
 

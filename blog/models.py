@@ -43,8 +43,8 @@ class BlogPost(models.Model):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
+
     def get_photo(self):
-        if self.coverImage:
+        if self.photo:
             return 'https://api.eagma.co.tz' + self.photo.url
         return ''
-

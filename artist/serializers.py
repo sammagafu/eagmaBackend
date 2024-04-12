@@ -11,7 +11,7 @@ class ArtistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Artist
-        fields = ('id', 'name','gender', 'slug', 'bio', 'photo', 'website', 'created_at', 'albums')
+        fields = ('id', 'name','gender', 'slug', 'bio', 'photo', 'website', 'created_at', 'albums','get_photo')
 
     def get_albums(self, obj):
         albums = obj.singer.all()

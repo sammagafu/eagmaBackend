@@ -1,8 +1,8 @@
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0+7*+$2+vf9jhsklbe45^s-&f$mref6#7og6yt8eg9owd3+y8l'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -26,8 +26,6 @@ INSTALLED_APPS = [
     'awards',
     'nominees',
     'blog',
-
-
 ]
 
 MIDDLEWARE = [
@@ -45,8 +43,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://eagma.co.tz",
     "https://www.eagma.co.tz",
-    "https://www.eagma.co.tz",
+    "https://www.eagma.co.tz", 
 ]
+
 
 ROOT_URLCONF = 'eagmaBackend.urls'
 
@@ -72,16 +71,27 @@ WSGI_APPLICATION = 'eagmaBackend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'eagma',
-        'USER':'eagmaadmin',
-        'PASSWORD':'Caf3Aroma-2024q',
-        'HOST':'localhost',
-        'PORT':'',
+if DEBUG:
+    # Debug mode, use SQLite3
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    # Production mode, use PostgreSQL
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'eagma',
+            'USER': 'sammy',
+            'PASSWORD': 'Caf3Aroma-2024q',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
+
 
 
 # Password validation
@@ -120,11 +130,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-
 STATIC_URL = '/static/'
-import os
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'mediafiles'
 

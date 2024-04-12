@@ -8,7 +8,7 @@ from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 
 
-class NomineeByCategoryAPIView(ListAPIView):
+class NomineeByCategoryAPIView(generics.ListAPIView):
     serializer_class = NomineeSerializer
 
     def get_queryset(self):

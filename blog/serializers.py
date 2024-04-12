@@ -5,7 +5,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
         depth = 1
-        fields = ('id', 'title','slug','photo','category', 'content', 'author', 'created_at', 'updated_at')
+        fields = ('id', 'title','slug','photo','category', 'content', 'author', 'created_at', 'updated_at','get_photo')
 
 class CategorySerializer(serializers.ModelSerializer):
     blogpost_set = BlogPostSerializer(many=True, read_only=True)
